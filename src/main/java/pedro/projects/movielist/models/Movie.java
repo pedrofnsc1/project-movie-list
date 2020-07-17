@@ -34,6 +34,7 @@ public class Movie {
     @NotBlank(message = "Director must be inserted")
     String director;
 
+    @NotBlank(message = "You must insert an IMDb profile")
     String imdb;
 
     @NotNull(message = "Release year must be inserted")

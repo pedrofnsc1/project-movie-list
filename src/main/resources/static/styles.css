@@ -24,6 +24,11 @@ header{
 
 }
 
+.form-edit{
+    margin-left: 500px;
+    margin-right: 500px;
+}
+
 .h1-my-movies{
     margin-left: 400px;
     margin-right: 400px;
@@ -50,4 +55,8 @@ p{
 .btn-pos{
     margin-left: px;
     margin-right: 250px;
+}
+
+body{
+    margin-bottom: 20px;
 }
