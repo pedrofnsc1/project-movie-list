@@ -1,0 +1,53 @@
+a:link{
+    text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+html {
+    font-family: 'Montserrat', sans-serif;
+    font-family: 'Roboto', sans-serif;
+}
+header{
+    margin-left: 600px;
+    margin-right: 600px;
+    display:flex;
+}
+
+.form-margin{
+    display:-ms-inline-flexbox;
+
+    margin-left: 400px;
+    margin-right: 400px;
+
+}
+
+.h1-my-movies{
+    margin-left: 400px;
+    margin-right: 400px;
+    text-align: center;
+}
+
+h1.h1-index{
+    text-align: justify-all;
+}
+
+.my-movies{
+    margin-left: 250px;
+    margin-right: 250px;
+}
+
+a.button-table{
+    text-align: justify-all;
+}
+
+p{
+    color: red;
+}
+
+.btn-pos{
+    margin-left: px;
+    margin-right: 250px;
+}
