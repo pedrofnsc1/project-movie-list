@@ -41,7 +41,6 @@ public class Movie {
     @Min(value = 1900)
     Integer yearRelease;
 
-
     Integer rateMovie;
 
 }

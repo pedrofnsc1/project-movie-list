@@ -27,6 +27,7 @@
     <table class="table">
         <thead class="table thead-primary">
             <tr >
+                <td>ID</td>
                 <th>Title Movie</th>
                 <th>Category</th>
                 <th>Movie rate</th>
@@ -38,6 +39,7 @@
         </thead>
 
         <tr th:each="movie : ${movieList}">
+            <td th:text="${movie.id}">ID</td>
             <td th:text="${movie.title}">Title Movie</td>
             <td th:text="${movie.category}">Category</td>
             <td th:text="${movie.rateMovie}">Movie rate</td>

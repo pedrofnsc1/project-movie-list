@@ -33,32 +33,36 @@ public class MovieController {
     public MovieController(MovieService movieService) {
         this.movieService = movieService;
     }
+
+
     @RequestMapping("/")
     public String getHome(Model model, HttpServletRequest request, HttpServletResponse response) {
 
         HttpSession session = request.getSession();
+
         Cookie cookie = new Cookie("accessTime", "redirectedToIndex");
 
         Date access = new Date(session.getLastAccessedTime());
         DateFormat format_date = new SimpleDateFormat("EEE-dd-MM-yyyy|hh:mm:ss");
-        String dateFormatString = format_date.format(access);
 
-        cookie.setValue(dateFormatString);
+        cookie.setValue(format_date.format(access));
+
         cookie.setMaxAge(1800);
+
         response.addCookie(cookie);
 
         Cookie[] cookies = request.getCookies();
 
-
-            for (int i = 0; i < cookies.length; i++) {
-                if (cookies[i].getName().equals("accessTime")) {
-                    List<Movie> movieList = movieService.findAll();
-                    model.addAttribute("movieList", movieList);
-                    model.addAttribute("cookieTime", cookies[i].getValue());
-                }
+        for (int i=0;i < cookies.length; i++){
+            if (cookies[i].getName().equals("accessTime")) {
+                List<Movie> movieList = movieService.findAll();
+                model.addAttribute("movieList", movieList);
+                model.addAttribute("cookieTime", cookies[i].getValue());
             }
+        }
         return "index";
     }
+
     @RequestMapping("/insert-movie")
     public String getPageNewMovie(Model model){
         var movie = new Movie();
@@ -67,17 +71,13 @@ public class MovieController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public ModelAndView saveMovie(@Valid @ModelAttribute Movie movie, Errors errors, RedirectAttributes attributes){
+    public String saveMovie(@ModelAttribute @Valid Movie movie, Errors errors){
 
         if(errors.hasErrors()){
-            ModelAndView mvInsert = new ModelAndView("insert-movie");
-            attributes.addFlashAttribute("message", "Verify all fields");
-            return mvInsert;
+            return "insert-movie";
         }else{
-            ModelAndView mv = new ModelAndView("redirect:/");
-           attributes.addFlashAttribute("message", "Movie added at your list");
             movieService.add(movie);
-            return mv;
+            return "redirect:/";
         }
     }
 
@@ -95,9 +95,4 @@ public class MovieController {
         movieService.delete(id);
         return "redirect:/";
     }
-
-  /*  @RequestMapping("/new-cookie")
-    public String newCookie(HttpServletRequest request ,HttpServletResponse response){
-        return "redirect:/";
-    }*/
 }
