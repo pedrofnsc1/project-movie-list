@@ -35,19 +35,29 @@ public class MovieController {
     }
     @RequestMapping("/")
     public String getHome(Model model, HttpServletRequest request, HttpServletResponse response) {
+
         HttpSession session = request.getSession();
+        Cookie cookie = new Cookie("accessTime", "redirectedToIndex");
 
-        Cookie cookie[] = request.getCookies();
+        Date access = new Date(session.getLastAccessedTime());
+        DateFormat format_date = new SimpleDateFormat("EEE-dd-MM-yyyy|hh:mm:ss");
+        String dateFormatString = format_date.format(access);
 
-            for (int i = 0; i < cookie.length; i++) {
-                if (cookie[i].getName().equals("accessTime")) {
+        cookie.setValue(dateFormatString);
+        cookie.setMaxAge(1800);
+        response.addCookie(cookie);
+
+        Cookie[] cookies = request.getCookies();
+
+
+            for (int i = 0; i < cookies.length; i++) {
+                if (cookies[i].getName().equals("accessTime")) {
                     List<Movie> movieList = movieService.findAll();
                     model.addAttribute("movieList", movieList);
-                    model.addAttribute("cookieTime", cookie[i].getValue());
-                    return "index";
+                    model.addAttribute("cookieTime", cookies[i].getValue());
                 }
             }
-        return "redirect:/new-cookie";
+        return "index";
     }
     @RequestMapping("/insert-movie")
     public String getPageNewMovie(Model model){
@@ -86,19 +96,8 @@ public class MovieController {
         return "redirect:/";
     }
 
-    @RequestMapping("/new-cookie")
+  /*  @RequestMapping("/new-cookie")
     public String newCookie(HttpServletRequest request ,HttpServletResponse response){
-
-        HttpSession session = request.getSession();
-        Cookie cookie = new Cookie("accessTime", "redirectedToIndex");
-
-        Date access = new Date(session.getLastAccessedTime());
-        DateFormat format_date = new SimpleDateFormat("EEE-dd-MM-yyyy|hh:mm:ss");
-        String dateFormatString = format_date.format(access);
-        cookie.setValue(dateFormatString);
-        cookie.setMaxAge(1800);
-        response.addCookie(cookie);
-
         return "redirect:/";
-    }
+    }*/
 }
