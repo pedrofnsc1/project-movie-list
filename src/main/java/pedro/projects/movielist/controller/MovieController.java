@@ -67,11 +67,11 @@ public class MovieController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public ModelAndView saveMovie(@ModelAttribute @Valid Movie movie, Errors errors, RedirectAttributes attributes){
+    public ModelAndView saveMovie(@Valid @ModelAttribute Movie movie, Errors errors, RedirectAttributes attributes){
 
         if(errors.hasErrors()){
             ModelAndView mvInsert = new ModelAndView("insert-movie");
-            //attributes.addFlashAttribute("message", "Verify all fields");
+            attributes.addFlashAttribute("message", "Verify all fields");
             return mvInsert;
         }else{
             ModelAndView mv = new ModelAndView("redirect:/");

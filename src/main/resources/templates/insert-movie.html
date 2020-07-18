@@ -67,7 +67,9 @@
                     <span th:text="${detailedError.message}"></span>
                 </div>
             </div>
-
+            <div class="alert alert-success" role="alert" th:if="${!#strings.isEmpty(message)}">
+                    <span th:text="${message}"></span>
+            </div>
 
             <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
     </form>
